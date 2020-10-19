@@ -5,6 +5,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/meshplus/bitxhub/internal/storages/blockfile"
+
 	"github.com/meshplus/bitxhub-kit/bytesutil"
 	"github.com/meshplus/bitxhub-kit/hexutil"
 	"github.com/meshplus/bitxhub-kit/log"
@@ -23,7 +25,10 @@ func TestAccount_GetState(t *testing.T) {
 
 	accountCache, err := NewAccountCache()
 	assert.Nil(t, err)
-	ledger, err := New(createMockRepo(t), blockStorage, ldb, accountCache, log.NewWithModule("ChainLedger"))
+	logger := log.NewWithModule("account_test")
+	blockFile, err := blockfile.NewBlockFile(repoRoot, logger)
+	assert.Nil(t, err)
+	ledger, err := New(createMockRepo(t), blockStorage, ldb, blockFile, accountCache, log.NewWithModule("ChainLedger"))
 	assert.Nil(t, err)
 
 	h := hexutil.Encode(bytesutil.LeftPadBytes([]byte{11}, 20))
