@@ -1,6 +1,7 @@
 package mempool
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/meshplus/bitxhub-model/pb"
@@ -118,4 +119,27 @@ func TestProcessFetchTxnResponse(t *testing.T) {
 	err = mpi.processFetchTxnResponse(fetchTxnResponse)
 	ast.Nil(err)
 	ast.Equal(0, len(mpi.txStore.missingBatch))
+}
+
+func TestA(t *testing.T){
+	hashes := make([]pb.Transaction,2)
+	hashes[0] = pb.Transaction{Nonce: uint64(1)}
+	hashes[1] = pb.Transaction{Nonce: uint64(2)}
+	hashes2 := make([]*pb.Transaction,2)
+	for _, hash := range hashes {
+		hash1 := hash
+		fmt.Printf("---%p\n",&hash1)
+		fmt.Printf("%v\n",&hash1)
+		hashes2 = append(hashes2, &hash1)
+	}
+	fmt.Printf("%+v\n",&hashes2)
+
+	hashes3 := make([]*pb.Transaction,2)
+	var hash pb.Transaction
+	for _, hash = range hashes {
+		fmt.Printf("---%p\n",&hash)
+		fmt.Printf("%v\n",&hash)
+		hashes3 = append(hashes3, &hash)
+	}
+	fmt.Printf("%+v\n",&hashes3)
 }

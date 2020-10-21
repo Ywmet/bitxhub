@@ -36,16 +36,16 @@ const (
 
 func mockMempoolImpl() (*mempoolImpl, chan *raftproto.Ready) {
 	config := &Config{
-		ID:             1,
-		ChainHeight:    DefaultTestChainHeight,
-		BatchSize:      DefaultTestBatchSize,
-		PoolSize:       DefaultPoolSize,
-		TxSliceSize:    DefaultTestTxSetSize,
-		BatchTick:      DefaultBatchTick,
-		FetchTimeout:   DefaultFetchTxnTimeout,
-		TxSliceTimeout: DefaultTxSetTick,
-		Logger:         log.NewWithModule("consensus"),
-		GetTransactionFunc:getTransactionFunc,
+		ID:                 1,
+		ChainHeight:        DefaultTestChainHeight,
+		BatchSize:          DefaultTestBatchSize,
+		PoolSize:           DefaultPoolSize,
+		TxSliceSize:        DefaultTestTxSetSize,
+		BatchTick:          DefaultBatchTick,
+		FetchTimeout:       DefaultFetchTxnTimeout,
+		TxSliceTimeout:     DefaultTxSetTick,
+		Logger:             log.NewWithModule("consensus"),
+		GetTransactionFunc: getTransactionFunc,
 	}
 	config.PeerMgr = newMockPeerMgr()
 	db, _ := leveldb.New(LevelDBDir)
